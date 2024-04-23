@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table,tr,th{
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+    <input type="text" id="inputName">
+    <input type="text" id="inputSubject">
+    <input type="number" id="inputAge">
+
+    <input type="button" onclick="addRow()" value="add">   
+
+    <table id="studentData">
+        <tr>
+            <th>Name</th>
+            <th>Subject</th>
+            <th>Age</th>
+        </tr>
+       
+    </table>
+</body>
+<script>
+    
+    var data = [{name:"ibrahim",subject:"enlish",age:22},
+    {name:"usman",subject:"enlish",age:22},
+    {name:"ali",subject:"enlish",age:22},
+    {name:"usama",subject:"enlish",age:22}
+    ];
+        
+    function tableData()
+    {
+        var table = document.getElementById("studentData");
+        data.map(function(person){
+            var row = table.insertRow();
+            var name = row.insertCell(0);
+            var subject = row.insertCell(1);
+            var age = row.insertCell(2);
+            var update = row.insertCell(3);            
+            
+            name.textContent = person.name;
+            subject.textContent = person.subject;
+            age.textContent = person.age;
+            update.innerHTML= '<button onclick="deleteRow(this)">Delete</button> <button onclick="updateRow(this)">Update</button>';
+        })
+    }
+    function addRow()
+    {
+        var name = document.getElementById("inputName").value;
+        var subject = document.getElementById("inputSubject").value;
+        var age = document.getElementById("inputAge").value;
+
+        if(name === "" || subject === "" || age === "")
+            {
+                alert("some feild is missing.")
+            }
+        else{
+        var table = document.getElementById("studentData");
+        var row = table.insertRow();
+        var newName = row.insertCell(0);
+        var newSubject = row.insertCell(1);
+        var newAge = row.insertCell(2);
+        var update = row.insertCell(3);
+
+
+        newName.textContent = name;
+        newSubject.textContent = subject;
+        newAge.textContent = age;
+        update.innerHTML = '<button onclick="deleteRow(this)">Delete</button> <button onclick="updateRow(this)">Update</button>';
+        }
+
+    }
+    function deleteRow(button)
+    {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+
+    }
+    function updateRow(button) {
+        var row = button.parentNode.parentNode;
+        var name = row.cells[0].textContent;
+        var subject = row.cells[1].textContent;
+        var age = row.cells[2].textContent;
+
+        var newName = prompt("enter name", name);
+        var newSubject = prompt("enter  subject",subject);
+        var newAge = prompt("enter age", age);
+
+        // if (newName !== null && newAge !== null && newSubject !== null) {
+            row.cells[0].textContent = newName;
+            row.cells[1].textContent = newSubject;
+            row.cells[2].textContent = newAge;
+        // }
+    }
+    tableData();
+</script>
+</html>
